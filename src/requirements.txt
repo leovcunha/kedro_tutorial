@@ -14,3 +14,5 @@ pytest~=6.2
 kedro[pandas.CSVDataSet, pandas.ExcelDataSet, pandas.ParquetDataSet]==0.18.4   # Specify optional Kedro dependencies
 kedro-viz~=5.0                                                                 # Visualise your pipelines
 scikit-learn~=1.0                                                              # For modelling in the data science pipeline
+kedro-datasets[spark.SparkDataSet, pandas.ParquetDataSet]~=1.0.0
+numpy==1.23.1

@@ -9,9 +9,10 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
+from pyspark.sql import DataFrame
 
 
-def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
+def split_data(data: DataFrame, parameters: Dict) -> Tuple:
     """Splits data into features and targets training and test sets.
 
     Args:
@@ -20,8 +21,8 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     Returns:
         Split data.
     """
-    X = data[parameters["features"]]
-    y = data["price"]
+    X = data.select(*parameters["features"]).toPandas()
+    y = data.select("price").toPandas()
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=parameters["test_size"], random_state=parameters["random_state"]
     )

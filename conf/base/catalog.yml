@@ -3,12 +3,24 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 companies:
-  type: pandas.CSVDataSet
+  type: spark.SparkDataSet
   filepath: data/01_raw/companies.csv
+  file_format: csv
+  load_args:
+    header: True
+    inferSchema: True
+  save_args:
+    header: True
 
 reviews:
-  type: pandas.CSVDataSet
+  type: spark.SparkDataSet
   filepath: data/01_raw/reviews.csv
+  file_format: csv
+  load_args:
+    header: True
+    inferSchema: True
+  save_args:
+    header: True
 
 shuttles:
   type: pandas.ExcelDataSet
@@ -16,17 +28,24 @@ shuttles:
   load_args:
     engine: openpyxl # Use modern Excel engine (the default since Kedro 0.18.0)
 
+
 preprocessed_companies:
-  type: pandas.ParquetDataSet
+  type: spark.SparkDataSet
   filepath: data/02_intermediate/preprocessed_companies.pq
+  save_args:
+    mode: overwrite
 
 preprocessed_shuttles:
-  type: pandas.ParquetDataSet
+  type: spark.SparkDataSet
   filepath: data/02_intermediate/preprocessed_shuttles.pq
+  save_args:
+    mode: overwrite
 
 model_input_table:
-  type: pandas.ParquetDataSet
+  type: spark.SparkDataSet
   filepath: data/03_primary/model_input_table.pq
+  save_args:
+    mode: overwrite
 
 active_modelling_pipeline.regressor:
   type: pickle.PickleDataSet
